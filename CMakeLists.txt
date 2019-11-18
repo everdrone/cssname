@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.10)
 
 # set the project name
-project(cssname VERSION "1.0.0")
+project(cssname VERSION "1.1.0")
 
 configure_file(config.h.in config.h)
 
