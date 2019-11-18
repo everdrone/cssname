@@ -2,13 +2,13 @@
 
 NSA/CSS Program name generator
 
-### Building
+## Building
 
 ```sh
-g++ main.cc -std=c++11 -o cssname
+% g++ main.cc -std=c++11 -o cssname
 ```
 
-### Usage
+## Usage
 
 ```
 % cssname -p
@@ -20,11 +20,13 @@ GROUND
 % cssnamee -d
 MAINCHARGE
 
-% cssname -d -n 3
+% cssname -dn 3
 CHEMICALFUEL
 TEAMPOSSESSION
 CONTEXTBURN
 ```
+
+### Options
 
 - `-p` prints adjective/noun pair (**default**)
 - `-s` prints a single noun

@@ -14,9 +14,15 @@ random_device rd;
 mt19937 mt(rd());
 uniform_real_distribution<double> dist(1.0, 10.0);
 
+const char bin_version[] = "1.0.0";
+
 // TODO(everdrone): specify options in usage
 void usage() {
   cout << "Usage:\n  cssname [-s | -p | -d] [-n COUNT]" << endl;
+}
+
+void version() {
+  cout << "cssname " << bin_version << endl;
 }
 
 vector<string> read_file(string fname) {
@@ -58,18 +64,20 @@ int main(int argc, char *argv[]) {
   int iterations = 1;
   char mode = 'p';
 
-  while ((c = getopt(argc, argv, "psdn:")) != -1) {
+  while ((c = getopt(argc, argv, "vpsdn:")) != -1) {
     switch (c) {
+    case 'v':
+      // print version and exit
+      version();
+      return 0;
+      break;
     case 's':
-      // single noun
       mode = 's';
       break;
     case 'd':
-      // single noun
       mode = 'd';
       break;
     case 'p':
-      // single noun
       mode = 'p';
       break;
     case 'n':
