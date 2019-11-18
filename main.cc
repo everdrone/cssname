@@ -19,7 +19,8 @@ const char bin_version[] = "1.0.0";
 // TODO(everdrone): specify options in usage
 void usage() {
   cout << endl;
-  cout << "Usage:\n  cssname cssname [-spd] [-n COUNT]" << endl;
+  cout << "Usage:" << endl;
+  cout << "  cssname [-spd] [-n NUM]" << endl;
   cout << endl;
   cout << "Options:" << endl;
   cout << "  -s               single noun" << endl;
@@ -82,7 +83,7 @@ int main(int argc, char *argv[]) {
       return 0;
       break;
     case 'h':
-      // print version and exit
+      // print help message
       usage();
       return 0;
       break;
