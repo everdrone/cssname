@@ -18,7 +18,17 @@ const char bin_version[] = "1.0.0";
 
 // TODO(everdrone): specify options in usage
 void usage() {
-  cout << "Usage:\n  cssname [-s | -p | -d] [-n COUNT]" << endl;
+  cout << endl;
+  cout << "Usage:\n  cssname cssname [-spd] [-n COUNT]" << endl;
+  cout << endl;
+  cout << "Options:" << endl;
+  cout << "  -s               single noun" << endl;
+  cout << "  -d               double noun pair" << endl;
+  cout << "  -p               adjective-noun pair" << endl;
+  cout << "  -n NUM           repeat NUM times" << endl;
+  cout << "  -v, --version    print version information and quit" << endl;
+  cout << "  -h, --help       print this message and quit" << endl;
+  cout << endl;
 }
 
 void version() {
@@ -64,11 +74,16 @@ int main(int argc, char *argv[]) {
   int iterations = 1;
   char mode = 'p';
 
-  while ((c = getopt(argc, argv, "vpsdn:")) != -1) {
+  while ((c = getopt(argc, argv, "vhpsdn:")) != -1) {
     switch (c) {
     case 'v':
       // print version and exit
       version();
+      return 0;
+      break;
+    case 'h':
+      // print version and exit
+      usage();
       return 0;
       break;
     case 's':
