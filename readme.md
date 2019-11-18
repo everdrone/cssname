@@ -5,7 +5,7 @@ NSA/CSS Program name generator
 ### Building
 
 ```sh
-g++ main.cc -std=c++11
+g++ main.cc -std=c++11 -o cssname
 ```
 
 ### Usage
