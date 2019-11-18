@@ -1,4 +1,5 @@
 #include <unistd.h>
+#include <getopt.h>
 #include <cstdlib>
 #include <iostream>
 #include <fstream>
@@ -8,6 +9,10 @@
 #include <iterator>
 #include <random>
 
+#define NO_ARG        0
+#define REQUIRED_ARG  1
+#define OPTIONAL_ARG  2
+
 using namespace std;
 
 random_device rd;
@@ -16,11 +21,10 @@ uniform_real_distribution<double> dist(1.0, 10.0);
 
 const char bin_version[] = "1.0.0";
 
-// TODO(everdrone): specify options in usage
 void usage() {
   cout << endl;
   cout << "Usage:" << endl;
-  cout << "  cssname [-spd] [-n NUM]" << endl;
+  cout << "  cssname [-spd] [-n <number>]" << endl;
   cout << endl;
   cout << "Options:" << endl;
   cout << "  -s               single noun" << endl;
@@ -64,27 +68,29 @@ string pick(vector<string> *vec) {
   return out;
 }
 
-// TODO(everdrone): add help option
 int main(int argc, char *argv[]) {
   vector<string> nouns, adjectives;
   nouns = read_file("nouns.txt");
   adjectives = read_file("adjectives.txt");
 
+  // getopt config
   int c;
+  const struct option longopts[] = {
+    {"version", NO_ARG, 0, 'v'},
+    {"help",    NO_ARG, 0, 'h'},
+    {0,         0,      0, 0},
+  };
+  // disable getopt errors
+  opterr = 0;
 
   int iterations = 1;
   char mode = 'p';
 
-  while ((c = getopt(argc, argv, "vhpsdn:")) != -1) {
+  while ((c = getopt_long(argc, argv, "vhpsdn:", longopts, &c)) != -1) {
     switch (c) {
     case 'v':
       // print version and exit
       version();
-      return 0;
-      break;
-    case 'h':
-      // print help message
-      usage();
       return 0;
       break;
     case 's':
@@ -100,6 +106,23 @@ int main(int argc, char *argv[]) {
       // number of iterations
       if (optarg) iterations = atoi(optarg);
       break;
+    case 'h':
+      usage();
+      return 0;
+    case '?':
+      if (optopt == 'n') {
+        // no arguments were passed to -n
+        cerr << "Error:\n  option `-n' requires an argument" << endl;
+      } else if (isprint(optopt)) {
+        // error occurred and character is printable
+        cerr << "Error:\n  invalid option: `-" << static_cast<char>
+             (optopt) << "'" << endl;
+      } else {
+        cerr << "Error:\n  invalid option" << endl;
+      }
+      cerr << endl;
+      cerr << "Type `cssname --help' for details\n" << endl;
+      return 1;
     }
   }
 
