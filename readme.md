@@ -5,7 +5,10 @@ NSA/CSS Program name generator
 ## Building
 
 ```sh
-% g++ main.cc -std=c++11 -o cssname
+% mkdir build && cd build
+% cmake ..
+% make
+% make install
 ```
 
 ## Usage
@@ -13,13 +16,19 @@ NSA/CSS Program name generator
 ```
 % cssname -p
 SPOTLESSMISSION
+```
 
+```
 % cssname -s
 GROUND
+```
 
+```
 % cssnamee -d
 MAINCHARGE
+```
 
+```
 % cssname -dn 3
 CHEMICALFUEL
 TEAMPOSSESSION

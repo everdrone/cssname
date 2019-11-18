@@ -9,6 +9,10 @@
 #include <iterator>
 #include <random>
 
+#include "config.h"
+#include "nouns.hh"
+#include "adjectives.hh"
+
 #define NO_ARG        0
 #define REQUIRED_ARG  1
 #define OPTIONAL_ARG  2
@@ -19,12 +23,10 @@ random_device rd;
 mt19937 mt(rd());
 uniform_real_distribution<double> dist(1.0, 10.0);
 
-const char bin_version[] = "1.0.0";
-
 void usage() {
   cout << endl;
   cout << "Usage:" << endl;
-  cout << "  cssname [-spd] [-n <number>]" << endl;
+  cout << "  " << PROJECT_NAME << " [-spd] [-n <number>]" << endl;
   cout << endl;
   cout << "Options:" << endl;
   cout << "  -s               single noun" << endl;
@@ -37,23 +39,7 @@ void usage() {
 }
 
 void version() {
-  cout << "cssname " << bin_version << endl;
-}
-
-vector<string> read_file(string fname) {
-  ifstream file;
-  file.open(fname);
-
-  // check if we have a file
-  if (!file) {
-    cout << "Error opening " << fname << endl;
-    exit(1);
-  }
-
-  // read the file into a vector
-  istream_iterator<string> start(file), end;
-  vector<string> words(start, end);
-  return words;
+  cout << PROJECT_NAME << " " << PROJECT_VERSION << endl;
 }
 
 string pick(vector<string> *vec) {
@@ -69,10 +55,6 @@ string pick(vector<string> *vec) {
 }
 
 int main(int argc, char *argv[]) {
-  vector<string> nouns, adjectives;
-  nouns = read_file("nouns.txt");
-  adjectives = read_file("adjectives.txt");
-
   // getopt config
   int c;
   const struct option longopts[] = {
@@ -121,7 +103,7 @@ int main(int argc, char *argv[]) {
         cerr << "Error:\n  invalid option" << endl;
       }
       cerr << endl;
-      cerr << "Type `cssname --help' for details\n" << endl;
+      cerr << "Type `" << PROJECT_NAME << " --help' for details\n" << endl;
       return 1;
     }
   }
