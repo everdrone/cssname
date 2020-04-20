@@ -50,7 +50,9 @@ string pick(vector<string> *vec) {
   // assign lowercase string
   string out = vec->at(dist(engine));
   // make uppercase
-  transform(out.begin(), out.end(), out.begin(), ::toupper);
+  //out.replace(0, 1, 1, toupper(out[0]));
+  out[0] = toupper(out[0]);
+  //transform(out.begin(), out.end(), out.begin(), ::toupper);
   return out;
 }
 
